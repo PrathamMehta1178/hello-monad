@@ -56,11 +56,7 @@ contract GameEconomyTest is Test {
         returns (GameEconomy.Voucher memory)
     {
         return GameEconomy.Voucher({
-            player: to,
-            resourceType: rt,
-            amount: amount,
-            nonce: nonce,
-            expiry: block.timestamp + 1 hours
+            player: to, resourceType: rt, amount: amount, nonce: nonce, expiry: block.timestamp + 1 hours
         });
     }
 
@@ -309,7 +305,9 @@ contract GameEconomyTest is Test {
         // Resolve GOLD_SHARE() before vm.prank so that view call doesn't itself consume the prank.
         uint256 goldId = econ.GOLD_SHARE();
         vm.prank(player);
-        vm.expectRevert(abi.encodeWithSelector(IERC1155Errors.ERC1155InsufficientBalance.selector, player, 0, 1, goldId));
+        vm.expectRevert(
+            abi.encodeWithSelector(IERC1155Errors.ERC1155InsufficientBalance.selector, player, 0, 1, goldId)
+        );
         econ.redeem(GameEconomy.ResourceType.GOLD, 1, 0);
     }
 

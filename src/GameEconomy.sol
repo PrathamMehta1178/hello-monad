@@ -147,7 +147,10 @@ contract GameEconomy is ERC1155, Ownable, Pausable, ReentrancyGuard, EIP712 {
     function diamondUnlockedCount() public view returns (uint256) {
         uint256 elapsed = block.timestamp - genesisTimestamp;
         uint256 additional = DiamondUnlock.additionalUnlockedCount(
-            elapsed, UNLOCK_FIRST_GAP_SECONDS, UNLOCK_GAP_INCREMENT_SECONDS, TOTAL_DIAMOND_CAP - INITIAL_DIAMOND_UNLOCKED
+            elapsed,
+            UNLOCK_FIRST_GAP_SECONDS,
+            UNLOCK_GAP_INCREMENT_SECONDS,
+            TOTAL_DIAMOND_CAP - INITIAL_DIAMOND_UNLOCKED
         );
         return INITIAL_DIAMOND_UNLOCKED + additional;
     }

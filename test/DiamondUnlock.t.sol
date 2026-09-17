@@ -52,9 +52,7 @@ contract DiamondUnlockTest is Test {
 
     function test_capsAtMaxAdditional_evenAfterCenturies() public pure {
         uint256 farFuture = 365 days * 200;
-        assertEq(
-            DiamondUnlock.additionalUnlockedCount(farFuture, FIRST_GAP, INCREMENT, MAX_ADDITIONAL), MAX_ADDITIONAL
-        );
+        assertEq(DiamondUnlock.additionalUnlockedCount(farFuture, FIRST_GAP, INCREMENT, MAX_ADDITIONAL), MAX_ADDITIONAL);
     }
 
     function test_zeroIncrement_isLinear() public pure {
