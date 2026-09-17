@@ -4,6 +4,7 @@ pragma solidity 0.8.28;
 import {Test} from "forge-std/Test.sol";
 import {GameEconomy} from "../src/GameEconomy.sol";
 import {IERC1155Errors} from "@openzeppelin/contracts/interfaces/draft-IERC6093.sol";
+import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
 
 contract GameEconomyTest is Test {
     GameEconomy econ;
@@ -260,7 +261,7 @@ contract GameEconomyTest is Test {
         econ.pause();
 
         GameEconomy.Voucher memory v = _voucher(player, GameEconomy.ResourceType.GOLD, 1, 1);
-        vm.expectRevert(bytes("EnforcedPause()"));
+        vm.expectRevert(Pausable.EnforcedPause.selector);
         econ.claim(v, _sign(v));
     }
 
@@ -316,7 +317,7 @@ contract GameEconomyTest is Test {
         econ.pause();
 
         vm.prank(player);
-        vm.expectRevert(bytes("EnforcedPause()"));
+        vm.expectRevert(Pausable.EnforcedPause.selector);
         econ.redeem(GameEconomy.ResourceType.GOLD, 1, 0);
     }
 
